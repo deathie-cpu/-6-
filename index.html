@@ -43,8 +43,10 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            background-repeat: no-repeat;
             z-index: -1;
             opacity: 0.3;
+            transition: opacity 0.3s ease;
         }
 
         header {
@@ -104,6 +106,14 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .hero.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .profile-pic {
@@ -186,12 +196,28 @@
             font-size: 2.5rem;
             color: var(--primary-color);
             text-shadow: 0 0 10px rgba(255, 107, 157, 0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .sparkle-divider.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .section {
             max-width: 1200px;
             margin: 0 auto;
             padding: 60px 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .section.white-bg {
@@ -338,11 +364,11 @@
 
         .tab-content.active {
             display: block;
-            animation: fadeIn 0.5s ease;
+            animation: fadeInTab 0.5s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeInTab {
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -646,6 +672,14 @@
             background: var(--blur-bg);
             margin-top: 60px;
             border-top: 1px solid #333;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        footer.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .footer-text {
@@ -654,6 +688,12 @@
         }
 
         @media (max-width: 768px) {
+            .background-image {
+                background-size: cover;
+                background-position: center;
+                opacity: 0.25;
+            }
+
             .nav-container {
                 gap: 5px;
             }
@@ -711,6 +751,12 @@
         }
 
         @media (max-width: 480px) {
+            .background-image {
+                background-size: cover;
+                background-position: center;
+                opacity: 0.2;
+            }
+
             .nav-item {
                 font-size: 0.9rem;
                 padding: 6px 10px;
@@ -740,6 +786,22 @@
             .symbol {
                 font-size: 0.4rem;
                 padding: 10px;
+            }
+        }
+
+        @media (orientation: portrait) {
+            .background-image {
+                background-size: cover;
+                background-position: center;
+                opacity: 0.25;
+            }
+        }
+
+        @media (orientation: landscape) and (max-width: 768px) {
+            .background-image {
+                background-size: cover;
+                background-position: center;
+                opacity: 0.3;
             }
         }
     </style>
@@ -1117,6 +1179,23 @@
                     });
                 }
             });
+        });
+
+        // Intersection Observer for fade-in animations
+        const sections = document.querySelectorAll('.section, .hero, .sparkle-divider, footer');
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
         });
     </script>
 </body>

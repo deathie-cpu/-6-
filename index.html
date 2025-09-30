@@ -33,6 +33,38 @@
             overflow-x: hidden;
         }
 
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            transition: opacity 0.5s ease;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .preloader-heart {
+            font-size: 2rem;
+            color: var(--primary-color);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
         .background-image {
             position: fixed;
             top: 0;
@@ -52,7 +84,7 @@
         header {
             background-color: var(--blur-bg);
             backdrop-filter: blur(10px);
-            padding: 20px 0;
+            padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -67,6 +99,16 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
+        }
+
+        .nav-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
         }
 
         .nav-item {
@@ -106,6 +148,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.8s ease, transform 0.8s ease;
@@ -142,6 +185,23 @@
             background-clip: text;
             color: transparent;
             animation: popUp 2s infinite alternate;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .name-heart {
+            font-size: 2rem;
+            color: var(--primary-color);
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
         }
 
         @keyframes popUp {
@@ -152,9 +212,10 @@
         .bio {
             font-size: 1.4rem;
             margin-bottom: 35px;
-            color: var(--text-dark);
+            color: #f5f5f5;
             line-height: 1.8;
             font-family: 'Times New Roman', serif;
+            font-weight: 500;
         }
 
         .social-links {
@@ -180,7 +241,7 @@
         }
 
         .social-link:hover, .social-link:focus {
-            background: linear-gradient(45deg, rgba(255, 107, 157, 0.4), rgba(255, 137, 153, 0.4));
+            background: linear-gradient(45deg, #ff6b9d, #d946ef);
             transform: translateY(-3px) scale(1.05);
             box-shadow: var(--shadow);
         }
@@ -248,6 +309,20 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             position: relative;
             font-family: 'Times New Roman', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '✧';
+            color: var(--primary-color);
+        }
+
+        .section-title::after {
+            content: '✧';
+            color: var(--primary-color);
         }
 
         .section-title::after {
@@ -274,8 +349,8 @@
             min-width: 300px;
             font-size: 1.24rem;
             line-height: 1.8;
-            color: var(--text-light);
-            font-weight: bold;
+            color: #f5f5f5;
+            font-weight: 500;
         }
 
         .about-image {
@@ -428,10 +503,10 @@
             font-family: monospace;
             font-size: 0.65rem;
             line-height: 1.1;
-            background: linear-gradient(45deg, rgba(255, 107, 157, 0.2), rgba(255, 137, 153, 0.2));
+            background: linear-gradient(45deg, rgba(40, 40, 40, 0.8), rgba(60, 60, 60, 0.8));
             padding: 15px;
             border-radius: 10px;
-            border: 1px solid rgba(255, 107, 157, 0.3);
+            border: 2px solid var(--secondary-color);
             text-align: center;
             white-space: pre;
             flex: 1;
@@ -442,7 +517,7 @@
 
         .symbol:hover, .symbol:focus {
             transform: scale(1.02);
-            background: linear-gradient(45deg, rgba(255, 107, 157, 0.3), rgba(255, 137, 153, 0.3));
+            background: linear-gradient(45deg, rgba(60, 60, 60, 0.9), rgba(80, 80, 80, 0.9));
         }
 
         .symbol:focus {
@@ -450,17 +525,62 @@
             outline-offset: 2px;
         }
 
+        .symbol-size-control {
+            display: inline-flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .symbol-size-btn {
+            padding: 8px 15px;
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid var(--primary-color);
+            border-radius: 15px;
+            color: var(--text-dark);
+            cursor: pointer;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        .symbol-size-btn:hover, .symbol-size-btn:focus {
+            background: linear-gradient(45deg, rgba(255, 107, 157, 0.3), rgba(255, 137, 153, 0.3));
+            transform: translateY(-2px);
+        }
+
+        .symbol-size-btn:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
         .copy-tooltip {
             position: absolute;
-            background: var(--primary-color);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: var(--text-dark);
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 8px 12px;
+            border-radius: 8px;
             font-size: 0.9rem;
             z-index: 1000;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease;
             pointer-events: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: var(--shadow);
+            animation: popTooltip 0.4s ease;
+        }
+
+        @keyframes popTooltip {
+            0% { transform: translateX(-50%) scale(0.8); opacity: 0; }
+            100% { transform: translateX(-50%) scale(1); opacity: 1; }
+        }
+
+        .copy-tooltip::before {
+            content: '♡';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--primary-color);
+            font-size: 1rem;
         }
 
         .photos-gallery {
@@ -476,6 +596,7 @@
             border-radius: 15px;
             height: 250px;
             cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
         .photo-item img {
@@ -484,10 +605,39 @@
             object-fit: cover;
             transition: transform 0.5s ease;
             loading: lazy;
+            opacity: 0;
+            animation: fadeInPhoto 1s ease forwards;
+        }
+
+        @keyframes fadeInPhoto {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
         }
 
         .photo-item:hover img {
             transform: scale(1.1);
+        }
+
+        .photo-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.pinimg.com/1200x/4b/0c/8b/4b0c8bfc1c0399a29b96fbdfd0a98051.jpg');
+            background-size: contain;
+            background-position: center;
+            pointer-events: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .photo-item:hover .photo-frame {
+            opacity: 1;
         }
 
         .modal {
@@ -513,6 +663,12 @@
             max-height: 90%;
             border-radius: 10px;
             box-shadow: var(--shadow);
+            animation: zoomInModal 0.4s ease;
+        }
+
+        @keyframes zoomInModal {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .modal-close {
@@ -558,6 +714,7 @@
 
         .carousel-item {
             min-width: 100%;
+            position: relative;
         }
 
         .carousel-item img {
@@ -644,11 +801,11 @@
             align-items: center;
             text-decoration: none;
             color: var(--text-dark);
-            transition: transform 0.3s ease;
+            transition: transform 0.5s ease;
         }
 
         .app-link:hover, .app-link:focus {
-            transform: translateY(-5px);
+            transform: translateY(-5px) rotate(5deg) scale(1.05);
         }
 
         .app-link:focus {
@@ -692,6 +849,61 @@
             font-weight: bold;
         }
 
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            font-size: 1rem;
+            color: var(--primary-color);
+            opacity: 0;
+            animation: float 10s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh); opacity: 0.6; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-dark);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover, .back-to-top:focus {
+            transform: scale(1.1);
+        }
+
+        .back-to-top:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
         footer {
             text-align: center;
             padding: 30px 20px;
@@ -720,8 +932,27 @@
                 opacity: 0.25;
             }
 
+            header {
+                padding: 10px 0;
+            }
+
             .nav-container {
                 gap: 5px;
+                flex-direction: column;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            .nav-container.active {
+                max-height: 500px;
+            }
+
+            .nav-toggle {
+                display: block;
+                position: absolute;
+                top: 10px;
+                right: 10px;
             }
 
             .nav-item {
@@ -810,7 +1041,7 @@
             }
 
             .symbol {
-                font-size: 0.4rem;
+                font-size: 0.5rem;
                 padding: 10px;
             }
         }
@@ -833,9 +1064,16 @@
     </style>
 </head>
 <body>
+    <div class="preloader">
+        <div class="preloader-heart">♡</div>
+    </div>
     <div class="background-image"></div>
+    <div class="particles" id="particles"></div>
 
     <header>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
         <nav class="nav-container" role="navigation" aria-label="Main navigation">
             <a href="#" class="nav-item" aria-label="Home">૮₍´ ꒳ ` ₎ა</a>
             <a href="#about" class="nav-item" aria-label="About me">𝐀𝐛𝐨𝐮𝐭 𝐦𝐞</a>
@@ -849,8 +1087,8 @@
 
     <main>
         <section class="hero" aria-labelledby="hero-title">
-            <img src="https://i.pinimg.com/736x/b7/e9/ea/b7e9eaf11a71a2c9903a36991b870b4b.jpg" alt="Deathie profile picture" class="profile-pic">
-            <h1 class="name" id="hero-title">𝕯𝖊𝖆𝖙𝖍𝖎𝖊</h1>
+            <img src="https://i.pinimg.com/736x/89/47/a9/8947a9ec1f9fef9a66d49c66e8b5ad20.jpg" alt="Deathie profile picture" class="profile-pic">
+            <h1 class="name" id="hero-title">𝕯𝖊𝖆𝖙𝖍𝖎𝖊 <span class="name-heart">♡</span></h1>
             <p class="bio">₊ ⊹ . Dark and cute style, suitable for views. ݁₊ ⊹ !!</p>
 
             <div class="social-links">
@@ -938,29 +1176,33 @@
             </div>
 
             <div id="art" class="tab-content" role="tabpanel" aria-labelledby="art-tab">
+                <div class="symbol-size-control">
+                    <button class="symbol-size-btn" data-size="increase" aria-label="Increase symbol font size">A+</button>
+                    <button class="symbol-size-btn" data-size="decrease" aria-label="Decrease symbol font size">A-</button>
+                </div>
                 <div class="symbols-container">
-                    <div class="symbol" aria-label="Symbol 1" tabindex="0">
+                    <div class="symbol" aria-label="Símbolos de corazones y amor" tabindex="0">
 ₊˚⊹ᡣ𐭩　　♡˖ ⊹　　˚₊·—̳͟͞͞♡⟢　　ᥫ᭡ˊ˗
                     </div>
-                    <div class="symbol" aria-label="Symbol 2" tabindex="0">
+                    <div class="symbol" aria-label="Símbolos de estrellas kawaii" tabindex="0">
 ⋆˙⟡♡✧˖°　　ᨦ ෆ ᨩ　　𓆩♡𓆪　　<𝟑
                     </div>
-                    <div class="symbol" aria-label="Symbol 3" tabindex="0">
+                    <div class="symbol" aria-label="Símbolos de corazones y flores" tabindex="0">
 𓈈 ♥︎ 𓈈　　ও˖ ࣪⊹　　♡໒꒱.°⑅　　ꨄ︎
                     </div>
-                    <div class="symbol" aria-label="Symbol 4" tabindex="0">
+                    <div class="symbol" aria-label="Símbolos minimalistas de amor" tabindex="0">
 ᯤ ♡　　︵ᡣ𐭩　　ᝰꪑ　　༘ᰔᩚ
                     </div>
-                    <div class="symbol" aria-label="Symbol 5" tabindex="0">
+                    <div class="symbol" aria-label="Símbolos kawaii de corazones" tabindex="0">
 ˚₊‧꒰ა❤︎໒꒱ ‧₊　　₊˚ෆ⊹₊ ⋆　　ᡣ𐭩 ྀིྀ　　𓏲𑁘
                     </div>
-                    <div class="symbol" aria-label="Symbol 6" tabindex="0">
+                    <div class="symbol" aria-label="Símbolos de texto estilizado" tabindex="0">
 𓉸      →﹐ ⛩ ﹒ texto﹒⟢      ⁺‧₊˚ ཐི⋆♱⋆ཋྀ ˚₊‧⁺
                     </div>
-                    <div class="symbol" aria-label="Symbol 7" tabindex="0">
+                    <div class="symbol" aria-label="Símbolos góticos y estrellas" tabindex="0">
 ⫘⫘⫘⫘⫘⫘       .⋆♱         ✃𓄧꒷꒦
                     </div>
-                    <div class="symbol" aria-label="Symbol 8" tabindex="0">
+                    <div class="symbol" aria-label="Símbolos de gato kawaii" tabindex="0">
 ╱|、
 (˚ˎ 。7  
 |、˜〵          
@@ -978,22 +1220,28 @@
                 <h3>⋅˚₊‧ 𐙚 ‧₊˚ ⋅</h3>
                 <div class="photos-gallery">
                     <div class="photo-item" data-src="https://i.pinimg.com/736x/35/98/80/359880715c0a698dc74a02494940376f.jpg">
-                        <img src="https://i.pinimg.com/736x/35/98/80/359880715c0a698dc74a02494940376f.jpg" alt="Dark aesthetic photo 1">
+                        <img src="https://i.pinimg.com/736x/85/ac/db/85acdbb5f9105874c32edbef9b26ea01.jpg" alt="Dark aesthetic photo 1">
+                        <div class="photo-frame"></div>
                     </div>
                     <div class="photo-item" data-src="https://i.pinimg.com/736x/49/58/09/495809f08d2ad55e8e9d23215d156f00.jpg">
-                        <img src="https://i.pinimg.com/736x/49/58/09/495809f08d2ad55e8e9d23215d156f00.jpg" alt="Dark aesthetic photo 2">
+                        <img src="https://i.pinimg.com/736x/85/ac/db/85acdbb5f9105874c32edbef9b26ea01.jpg" alt="Dark aesthetic photo 2">
+                        <div class="photo-frame"></div>
                     </div>
                     <div class="photo-item" data-src="https://i.pinimg.com/736x/42/bd/b0/42bdb0bae63e677d624a6412fc7e7106.jpg">
-                        <img src="https://i.pinimg.com/736x/42/bd/b0/42bdb0bae63e677d624a6412fc7e7106.jpg" alt="Dark aesthetic photo 3">
+                        <img src="https://i.pinimg.com/736x/85/ac/db/85acdbb5f9105874c32edbef9b26ea01.jpg" alt="Dark aesthetic photo 3">
+                        <div class="photo-frame"></div>
                     </div>
                     <div class="photo-item" data-src="https://i.pinimg.com/736x/f9/7a/2a/f97a2a9a63dec9c844dedf12fbd3a033.jpg">
-                        <img src="https://i.pinimg.com/736x/f9/7a/2a/f97a2a9a63dec9c844dedf12fbd3a033.jpg" alt="Dark aesthetic photo 4">
+                        <img src="https://i.pinimg.com/736x/85/ac/db/85acdbb5f9105874c32edbef9b26ea01.jpg" alt="Dark aesthetic photo 4">
+                        <div class="photo-frame"></div>
                     </div>
                     <div class="photo-item" data-src="https://i.pinimg.com/736x/ce/fd/2e/cefd2ec2deae1655ea9ddcff998335fd.jpg">
-                        <img src="https://i.pinimg.com/736x/ce/fd/2e/cefd2ec2deae1655ea9ddcff998335fd.jpg" alt="Dark aesthetic photo 5">
+                        <img src="https://i.pinimg.com/736x/85/ac/db/85acdbb5f9105874c32edbef9b26ea01.jpg" alt="Dark aesthetic photo 5">
+                        <div class="photo-frame"></div>
                     </div>
                     <div class="photo-item" data-src="https://i.pinimg.com/736x/20/24/39/2024393039c59c9806a295171232fecb.jpg">
-                        <img src="https://i.pinimg.com/736x/20/24/39/2024393039c59c9806a295171232fecb.jpg" alt="Dark aesthetic photo 6">
+                        <img src="https://i.pinimg.com/736x/85/ac/db/85acdbb5f9105874c32edbef9b26ea01.jpg" alt="Dark aesthetic photo 6">
+                        <div class="photo-frame"></div>
                     </div>
                 </div>
                 <p style="margin-top: 25px; font-size: 1.1rem;">My VSCO:</p>
@@ -1030,8 +1278,8 @@
                         <img src="https://i.pinimg.com/1200x/e4/de/5e/e4de5e320dda1e27c09b4fd1eb543f29.jpg" alt="Gallery image 6">
                     </div>
                 </div>
-                <button class="carousel-control prev" aria-label="Previous slide">&#10094;</button>
-                <button class="carousel-control next" aria-label="Next slide">&#10095;</button>
+                <button class="carousel-control prev" aria-label="Previous slide in gallery">&#10094;</button>
+                <button class="carousel-control next" aria-label="Next slide in gallery">&#10095;</button>
                 <div class="carousel-indicators">
                     <span class="indicator active" data-slide="0" role="button" aria-label="Go to slide 1"></span>
                     <span class="indicator" data-slide="1" role="button" aria-label="Go to slide 2"></span>
@@ -1094,7 +1342,38 @@
         <img src="" alt="Full-screen photo">
     </div>
 
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.textContent = '♡';
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.animationDelay = `${Math.random() * 10}s`;
+            particle.style.animationDuration = `${8 + Math.random() * 4}s`;
+            particlesContainer.appendChild(particle);
+        }
+
+        // Menu toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navContainer = document.querySelector('.nav-container');
+        navToggle.addEventListener('click', () => {
+            navContainer.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', navContainer.classList.contains('active'));
+        });
+
         // Tab functionality
         const tabs = document.querySelectorAll('.tab');
         tabs.forEach(tab => {
@@ -1224,21 +1503,31 @@
             observer.observe(section);
         });
 
+        // Back to top button
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            backToTop.classList.toggle('visible', window.scrollY > 300);
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
         // Copy-to-clipboard functionality for symbols
         const symbols = document.querySelectorAll('.symbol');
         symbols.forEach(symbol => {
             symbol.addEventListener('click', () => {
                 const text = symbol.textContent.trim();
                 try {
-                    // Try using the Clipboard API first
                     navigator.clipboard.writeText(text).then(() => {
                         showTooltip(symbol);
                     }).catch(() => {
-                        // Fallback method
                         copyTextFallback(text, symbol);
                     });
                 } catch (err) {
-                    // Fallback for older browsers or if Clipboard API fails
                     copyTextFallback(text, symbol);
                 }
             });
@@ -1286,6 +1575,22 @@
                 setTimeout(() => tooltip.remove(), 300);
             }, 1000);
         }
+
+        // Symbol size control
+        const symbolSizeButtons = document.querySelectorAll('.symbol-size-btn');
+        let symbolFontSize = 0.65;
+        symbolSizeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (button.getAttribute('data-size') === 'increase') {
+                    symbolFontSize = Math.min(symbolFontSize + 0.1, 1.2);
+                } else {
+                    symbolFontSize = Math.max(symbolFontSize - 0.1, 0.4);
+                }
+                symbols.forEach(symbol => {
+                    symbol.style.fontSize = `${symbolFontSize}rem`;
+                });
+            });
+        });
     </script>
 </body>
 </html>
